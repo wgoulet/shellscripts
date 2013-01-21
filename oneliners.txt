@@ -1,0 +1,6 @@
+# One liner to execute a command that generates a list of outputs
+# that is fed into another command. Note the use of bash for
+# loop iterating over results of executing a perl one liner to
+# match and extract text from an input line
+
+ for i in $(cat db.ldif | perl -ne 'if ($_ =~m/id=(.*),\s*(CN|cn)=Profiles/) {print "$1\n"}'); do ../Utils/certprofcopy ../Utils/copy-example.conf $i; cp export.xml $i.xml; done
